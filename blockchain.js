@@ -39,6 +39,8 @@ addBlock({ data }) { 
 
             const { timestamp, lastHash, hash, nonce, difficulty, data } = chain[i];
             const actualLastHash = chain[i-1].hash; 
+            const lastDifficulty = chain[i-1].difficulty;
+
 
 
             if(lastHash !== actualLastHash) return false; 
@@ -46,6 +48,8 @@ addBlock({ data }) { 
             const validateHash = cryptoHasher(timestamp, lastHash, data, nonce, difficulty);
             
             if (hash !== validateHash) return false; 
+
+            if (Math.abs(lastDifficulty - difficulty) > 1) return false;
         }
 
         return true; 
