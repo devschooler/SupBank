@@ -11,7 +11,6 @@ const pubsub = new PubSub({ blockchain });
 const DEFAULT_PORT = 3000; 
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
-setTimeout(() => pubsub.broadcastChain(), 1000); 
 
 app.use(bodyParser.json());
 
@@ -25,6 +24,8 @@ app.post('/api/mine', (req,res) => {
     pubsub.broadcastChain();
     res.redirect('/api/blocks');
 }) 
+
+
 // synchronisation lors de la connexion a un node 
 const chainSync = () => { 
     request({ url: `${ROOT_NODE_ADDRESS}/api/blocks`}, (error,response,body) => {
@@ -45,5 +46,10 @@ if(process.env.GENERATE_PEER_PORT === 'true' ){
 const PORT = PEER_PORT || DEFAULT_PORT;
 app.listen(PORT, () => {
     console.log(`ecoute &sur localhost:3000:${PORT}`);
-    chainSync();
+
+    // syncronisation lorsque ce n'est pas le même port 
+    if (PORT !== DEFAULT_PORT){
+        chainSync();
+    }
+    
 });
