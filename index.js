@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const request = require('request');
 const Blockchain = require('./blockchain');
 const PubSub = require('./pubsub');
 
 const app = express();
 const blockchain = new Blockchain();
 const pubsub = new PubSub({ blockchain });
+
+const DEFAULT_PORT = 3000; 
+const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 setTimeout(() => pubsub.broadcastChain(), 1000); 
 
@@ -22,8 +25,17 @@ app.post('/api/mine', (req,res) => {
     pubsub.broadcastChain();
     res.redirect('/api/blocks');
 }) 
+// synchronisation lors de la connexion a un node 
+const chainSync = () => { 
+    request({ url: `${ROOT_NODE_ADDRESS}/api/blocks`}, (error,response,body) => {
+        if (!error && response.statusCode === 200) {
+            const rootChain = JSON.parse(body);
+            console.log('remplace la chaine lors dune synchronisation avec', rootChain); 
+            blockchain.chainReplacer(rootChain);
+        }
+    })
+}
 
-const DEFAULT_PORT = 3000; 
 let PEER_PORT;
 
 if(process.env.GENERATE_PEER_PORT === 'true' ){
@@ -31,4 +43,7 @@ if(process.env.GENERATE_PEER_PORT === 'true' ){
 }
 
 const PORT = PEER_PORT || DEFAULT_PORT;
-app.listen(PORT, () => console.log(`ecoute &sur localhost:3000:${PORT}`));
+app.listen(PORT, () => {
+    console.log(`ecoute &sur localhost:3000:${PORT}`);
+    chainSync();
+});
