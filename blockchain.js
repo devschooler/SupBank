@@ -51,6 +51,7 @@ addBlock({ data }) { 
 
             if (Math.abs(lastDifficulty - difficulty) > 1) return false;
         }
+        
 
         return true; 
     }
