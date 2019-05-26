@@ -12,6 +12,6 @@ const FIRSTBLOCK_DATA = {
     data: []
 }; 
 
+const BALANCE_AT_START = 1000;
 
-
-module.exports = { FIRSTBLOCK_DATA, MINE_RATE };
+module.exports = { FIRSTBLOCK_DATA, MINE_RATE, BALANCE_AT_START };
