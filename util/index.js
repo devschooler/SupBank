@@ -1,5 +1,6 @@
 const EC = require('elliptic').ec;
-const {ec, cryptoHasher} = require('../util');
+const { cryptoHasher} = require('../util');
+const ec = new EC('secp256k1');
 
 
 const verifySignature = ({ publicKey, data, signature }) => {

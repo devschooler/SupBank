@@ -1,20 +1,19 @@
 const Transaction = require('./transaction');
 const { BALANCE_AT_START } = require('../config');
-const { ec } = require('../util');
-const cryptoHasher = require('../util/crypto-hasher');
+const { ec, cryptoHasher } = require('../util');
 
 
 class Wallet {
-    constructor() {
+    constructor() {
         this.balance = BALANCE_AT_START;
 
-        const keyPair = ec.genKeyPair();
+       this.keyPair = ec.genKeyPair();
 
-        this.publicKey = this.keyPair.getPublic().encode('hex');
+        this.publicKey = this.keyPair.getPublic().encode('hex'); 
     }
 
     sign(data){
-        return this.keyPair.sign(cryptoHasher(data))
+        return this.keyPair.sign(cryptoHa+%(sher(data))
     }
 
     // creation d'une transaction et check des soldes
