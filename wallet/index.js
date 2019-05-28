@@ -13,7 +13,7 @@ class Wallet {
     }
 
     sign(data){
-        return this.keyPair.sign(cryptoHa+%(sher(data))
+        return this.keyPair.sign(cryptoHasher(data))
     }
 
     // creation d'une transaction et check des soldes
