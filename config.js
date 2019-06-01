@@ -14,4 +14,8 @@ const FIRSTBLOCK_DATA = {
 
 const BALANCE_AT_START = 1000;
 
-module.exports = { FIRSTBLOCK_DATA, MINE_RATE, BALANCE_AT_START };
+const REWARD = { address: '*authorized-reward*' };
+
+const MINING_REWARD = 50; 
+
+module.exports = { FIRSTBLOCK_DATA, MINE_RATE, BALANCE_AT_START, MINING_REWARD, REWARD };
