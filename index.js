@@ -22,6 +22,7 @@ app.get('/api/blocks', (req,res) => {
 res.json(blockchain.chain);
 
 });
+// mine un block 
 app.post('/api/mine', (req,res) => {
     const { data } = req.body;
     blockchain.addBlock( { data });
@@ -29,11 +30,22 @@ app.post('/api/mine', (req,res) => {
     res.redirect('/api/blocks');
 }); 
 
+// envoi d'une transaction 
+
 app.post('/api/transact',(req,res) => { 
     const { amount, recipient } = req.body;
-    let transaction;
+    let transaction = transactionPool.existingTransaction({ inputAddress: wallet.publicKey });
+
     try {
-         transaction = wallet.createTransaction({ recipient,amount });
+        // si la transaction existe déjà on update le wallet 
+        if (transaction) {
+            transaction.update({ senderWallet: wallet, recipient, amount});
+        }
+ //sinon on le crée
+        else {
+            transaction = wallet.createTransaction({ recipient, amount });
+
+        }
     } catch(error) 
      { 
         return res.status(400).json({ type:'error',message: error.message});
@@ -45,9 +57,11 @@ app.post('/api/transact',(req,res) => { 
 
     console.log('transactionPool', transactionPool);
 
-    res.json({ttype:'success',transaction});
+    res.json({type:'success',transaction});
 });
-
+app.get('/api/transaction-map', (req, res) => {
+    res.json(transactionPool.transactionMap);
+  });
 
 // synchronisation lors de la connexion a un node 
 const chainSync = () => { 

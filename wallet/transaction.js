@@ -17,7 +17,7 @@ class Transaction{
         return outputMap;
     }
 
-    createInput({ senderWallet, outputMap}) {
+    createInput({ senderWallet, outputMap }) {
         return{
             timestamp: Date.now(),
             amount : senderWallet.balance,
@@ -28,30 +28,30 @@ class Transaction{
     }
     // mise a jour transactions / wallet
     update({ senderWallet, recipient, amount }) {
-
-        if (amount >this.outputMap[senderWallet.publicKey]) { 
-            throw new Error('le montant dépasse la balance ')
+        if (amount > this.outputMap[senderWallet.publicKey]) {
+          throw new Error('Désolé ! le montant dépasse le solde du compte :( ');
         }
-
-        if (!this.outputMap[recipient]) { 
-            this.outputMap[recipient] = amount;   
+    
+        if (!this.outputMap[recipient]) {
+          this.outputMap[recipient] = amount;
+        } else {
+          this.outputMap[recipient] = this.outputMap[recipient] + amount;
         }
-        else { 
-            this.outputMap[recipient] = this.outputMap[recipient + amount];
-        }
+    
+        this.outputMap[senderWallet.publicKey] =
+          this.outputMap[senderWallet.publicKey] - amount;
+    
+        this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
+      }
 
-        this.outputMap[recipient] = amount;
-        this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
-        this.input = this.createInput({senderWallet, outputMap: this.outputMap });
-
-    }
+    
 // valider les transactions 
     static validTransaction(transaction){
-        const{ input  : { address, amount, signature }, outputMap} = transaction;
+        const{ input: { address, amount, signature }, outputMap} = transaction;
 
         const outputTotal = Object.values(outputMap).reduce((total,outputAmount) => total + outputAmount);
 
-        if(amout !== outputTotal) {
+        if(amount !== outputTotal) {
             console.error(`transaction invalide depuis ${address}`);
             return false;
         
