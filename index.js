@@ -66,15 +66,25 @@ app.get('/api/transaction-map', (req, res) => {
   });
 
 // synchronisation lors de la connexion a un node 
-const chainSync = () => { 
-    request({ url: `${ROOT_NODE_ADDRESS}/api/blocks`}, (error,response,body) => {
-        if (!error && response.statusCode === 200) {
-            const rootChain = JSON.parse(body);
-            console.log('remplace la chaine lors dune synchronisation avec', rootChain); 
-            blockchain.chainReplacer(rootChain);
-        }
-    })
-}
+const RootStateSyncher = () => {
+    request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        const rootChain = JSON.parse(body);
+  
+        console.log('remplace la chaine lors de la synchro', rootChain);
+        blockchain.chainReplacer(rootChain);
+      }
+    });
+  
+    request({ url: `${ROOT_NODE_ADDRESS}/api/transaction-pool-map` }, (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        const rootTransactionPoolMap = JSON.parse(body);
+  
+        console.log('remplace la transaction pool map lors de la synchro a un noed', rootTransactionPoolMap);
+        transactionPool.setMap(rootTransactionPoolMap);
+      }
+    });
+  };
 
 let PEER_PORT;
 
@@ -88,7 +98,7 @@ app.listen(PORT, () => {
 
     // syncronisation lorsque ce n'est pas le même port 
     if (PORT !== DEFAULT_PORT){
-        chainSync();
+        RootStateSyncher();
     }
     
 });
