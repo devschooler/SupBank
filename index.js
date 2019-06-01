@@ -27,7 +27,26 @@ app.post('/api/mine', (req,res) => {
     blockchain.addBlock( { data });
     pubsub.broadcastChain();
     res.redirect('/api/blocks');
-}) 
+}); 
+
+app.post('/api/transact',(req,res) => { 
+    const { amount, recipient } = req.body;
+    let transaction;
+    try {
+         transaction = wallet.createTransaction({ recipient,amount });
+    } catch(error) 
+     { 
+        return res.status(400).json({ type:'error',message: error.message});
+     }
+
+
+
+    transactionPool.setTransaction(transaction);
+
+    console.log('transactionPool', transactionPool);
+
+    res.json({ttype:'success',transaction});
+});
 
 
 // synchronisation lors de la connexion a un node 

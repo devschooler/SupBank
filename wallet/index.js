@@ -1,6 +1,15 @@
 const Transaction = require('./transaction');
 const { BALANCE_AT_START } = require('../config');
-const { ec, cryptoHasher } = require('../util');
+const { ec } = require('../util');
+const crypto = require('crypto');
+
+
+const cryptoHasher = (...inputs) => {
+    const hash = crypto.createHash('sha256');
+    hash.update(inputs.map(inputs => JSON.stringify(inputs)).sort().join('')); 
+
+    return hash.digest('hex'); 
+};
 
 
 class Wallet {
