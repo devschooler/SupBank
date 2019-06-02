@@ -38,6 +38,7 @@ addBlock({ data }) { 
     validTransactionData({ chain }) {
         for(let i=1; i<chain.length; i++){ 
             const block = chain[i];
+            const TransactionSet = new Set();
             let rewardTransactionCount = 0; 
 
             for (let transaction of block.data){ 
@@ -69,6 +70,15 @@ addBlock({ data }) { 
                     if(transaction.input.amount !== trueBalance ){
                         console.error('montant entree invalide');
                         return false;
+                    }
+
+                    if(TransactionSet.has(transaction)){
+                        console.error('une transaction identique apparait plus dune fois dans le block');
+                        return false;
+
+                    } else { 
+                        transaction.add(transaction);
+
                     }
                 }
             }
