@@ -17,7 +17,7 @@ addBlock({ data }) { 
     this.chain.push(newBlock); 
     }
 
-    chainReplacer(chain, onSuccess) { 
+    chainReplacer(chain, validateTransactions, onSuccess) { 
         if (chain.length <= this.chain.length) {
             console.error('la chaine entrante est trop courte')
             return;
@@ -26,6 +26,11 @@ addBlock({ data }) { 
         if (!Blockchain.ChainValidator(chain)){
             console.error('la chaine entrante dois etre valide')
             return; 
+        }
+
+        if(validateTransactions && !this.validTransactionData({ chain })){ 
+            console.error('la chaine entrante contient des donnees invalides')
+            return;
         }
         if (onSuccess) onSuccess(); 
 
@@ -71,7 +76,7 @@ addBlock({ data }) { 
                         console.error('montant entree invalide');
                         return false;
                     }
-
+                    //evite d'avoir 2x la meme transaction dans le block
                     if(TransactionSet.has(transaction)){
                         console.error('une transaction identique apparait plus dune fois dans le block');
                         return false;
