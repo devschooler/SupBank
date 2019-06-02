@@ -24,7 +24,8 @@ class TransactionPool { 
    } 
 
    validTransactions(){ 
-    Object.values(this.transactionMap).filter(
+    
+    return Object.values(this.transactionMap).filter(
         transaction => Transaction.validTransaction(transaction)
     );
    }
@@ -36,7 +37,7 @@ class TransactionPool { 
         for (let transaction of block.data) { 
             if (this.transactionMap[transaction.id]){
                 delete this.transactionMap[transaction.id];
-                        }
+                }
         }
     }
    }
