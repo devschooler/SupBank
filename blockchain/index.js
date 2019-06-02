@@ -14,7 +14,7 @@ addBlock({ data }) { 
     this.chain.push(newBlock); 
     }
 
-    chainReplacer(chain) { 
+    chainReplacer(chain, onSuccess) { 
         if (chain.length <= this.chain.length) {
             console.error('la chaine entrante est trop courte')
             return;
@@ -24,6 +24,8 @@ addBlock({ data }) { 
             console.error('la chaine entrante dois etre valide')
             return; 
         }
+        if (onSuccess) onSuccess(); 
+
         console.log('remplacement de chaine par ', chain);
         this.chain = chain; 
 

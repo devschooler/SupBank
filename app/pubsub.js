@@ -23,7 +23,11 @@ class PubSub {
        
         switch(channel){
             case CHANNELS.BLOCKCHAIN:
-                this.blockchain.chainReplacer(parsedMessage);
+                this.blockchain.chainReplacer(parsedMessage), () => { 
+                    this.transactionPool.clearBlockchainTranstions({
+                        chain: parsedMessage
+                    });
+                };
             break;  
             case CHANNELS.TRANSACTION:
                 this.transactionPool.setTransaction(parsedMessage);
