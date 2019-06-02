@@ -43,19 +43,31 @@ class Wallet {
     }
 
     static BalanceCalculator({ chain, address }){
+
+        let hasConductedTransaction = false;
        let outputsTotal = 0;
-       for (let i=1; i<chain.lenght; i++){
+       for (let i=chain.lenght-1; i>0; i--){
            const block = chain[i];
         
         for (let transaction of block.data) {
+            if (transaction.input.address === address){
+                hasConductedTransaction = true;
+            }
+
             const addressOutput = transaction.outputMap[address];
+            
+            
             if(addressOutput) { 
+                
                 outputsTotal = outputsTotal + addressOutput;
             }
+            
         }
-
+        if(hasConductedTransaction){ 
+            break; 
+        }
        }
-        return BALANCE_AT_START + outputsTotal;
+        return hasConductedTransaction ? outputsTotal : BALANCE_AT_START + outputsTotal;
     }
     
 
