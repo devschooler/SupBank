@@ -27,6 +27,14 @@ class Wallet {
 
     // creation d'une transaction et check des soldes
     createTransaction({ recipient, amount }) {
+        
+        if(chain) {
+            this.balance = Wallet.BalanceCalculator({
+                chain,
+                address: this.publicKey
+            })
+        }
+        
         if (amount > this.balance){
             throw new Error('le montant dépasse le solde du compte');
 
