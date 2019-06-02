@@ -1,5 +1,6 @@
 const Block = require('./block'); 
 const Transaction = require('../wallet/transaction');
+const Wallet = require('../wallet');
 const {cryptoHasher} = require('../util');
 const { REWARD, MINING_REWARD } = require('../config');
 
@@ -57,6 +58,16 @@ addBlock({ data }) { 
                 else { 
                     if(!Transaction.validTransaction(transaction)){
                         console.error('transaction invalide');
+                        return false;
+                    }
+
+                    const trueBalance = Wallet.BalanceCalculator({ 
+                        chain: this.chain,
+                        address: transaction.input.address
+                    });
+
+                    if(transaction.input.amount !== trueBalance ){
+                        console.error('montant entree invalide');
                         return false;
                     }
                 }
