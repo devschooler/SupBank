@@ -1,8 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from '../composants/app';
 
 
 
-
-render(<div> Supbank - Frontend React  ss: live  </div>, document.getElementById('root')
+render(
+    <App/>,
+     document.getElementById('root')
 );
