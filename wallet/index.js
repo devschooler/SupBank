@@ -26,7 +26,7 @@ class Wallet {
     }
 
     // creation d'une transaction et check des soldes
-    createTransaction({ recipient, amount }) {
+    createTransaction({ recipient, amount, chain }) {
         
         if(chain) {
             this.balance = Wallet.BalanceCalculator({

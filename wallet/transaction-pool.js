@@ -1,46 +1,45 @@
 const Transaction = require('./transaction');
 
-class TransactionPool { 
+class TransactionPool {
     constructor() {
         this.transactionMap = {};
     }
 
-    clear(){
+    clear() {
         this.transactionMap = {};
     }
 
-    setTransaction(transaction){
+    setTransaction(transaction) {
         this.transactionMap[transaction.id] = transaction;
     }
 
-    setMap(transactionMap){
+    setMap(transactionMap) {
         this.transactionMap = transactionMap;
     }
 
     //vérifie si la transaction existe
-   existingTransaction({ inputAddress }) { 
-       const transaction = Object.values(this.transactionMap);
-       return transaction.find(transaction => transaction.input.address === inputAddress);
-   } 
+    existingTransaction({ inputAddress }) {
+        const transaction = Object.values(this.transactionMap);
+        return transaction.find(transaction => transaction.input.address === inputAddress);
+    }
 
-   validTransactions(){ 
-    
-    return Object.values(this.transactionMap).filter(
-        transaction => Transaction.validTransaction(transaction)
-    );
-   }
+    validTransactions() {
 
-   BlockchainTransactionsCleaner({ chain }){
-    for (let i=1; i<chain.length; i++){ 
-        const block = chain[i];
+        return Object.values(this.transactionMap).filter(
+            transaction => Transaction.validTransaction(transaction)
+        );
+    }
+    clearBlockchainTransactions({ chain }) {
+        for (let i = 1; i < chain.length; i++) {
+            const block = chain[i];
 
-        for (let transaction of block.data) { 
-            if (this.transactionMap[transaction.id]){
-                delete this.transactionMap[transaction.id];
+            for (let transaction of block.data) {
+                if (this.transactionMap[transaction.id]) {
+                    delete this.transactionMap[transaction.id];
                 }
+            }
         }
     }
-   }
 }
 
 module.exports = TransactionPool;
