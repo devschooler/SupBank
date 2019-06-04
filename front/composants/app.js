@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Blocks from './Block';
 class App  extends Component  {
     state = { walletInfo: {}};
 
@@ -18,6 +18,8 @@ class App  extends Component  {
                Bienvenue sur la blockchain de SupBank
                <div> addresse du compte : {address}</div>
                <div> Solde du compte : {balance} </div>
+               <br/>
+               <Blocks/>
            </div> 
         );
     }
