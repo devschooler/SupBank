@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Blocks from './Block';
+import Blocks from './Blocks';
+import Block from './Block';
+import image from '../src/images/SUPFILE_white.png';
 class App  extends Component  {
     state = { walletInfo: {}};
 
@@ -15,11 +17,30 @@ class App  extends Component  {
         const { address, balance } = this.state.walletInfo;
         return ( 
            <div> 
-               Bienvenue sur la blockchain de SupBank
-               <div> addresse du compte : {address}</div>
+               <div className='info'> 
+
+               <div className="welcome">
+                   <div className='icon'> 
+                    <img className='supbank-logo' src={image}/>
+                   </div>
+                Bienvene sur l'Explorateur de la blockchain de SupBank 
+                Ici vous pourrez voir les blocks des transactions en supcoin
+               
+                
+                </div>
+
+                <div className='perso'> 
+                 voici vos informations personnelles, ne les communiquez qu'avec des personnes de confiances ! 
+                <div> addresse du compte : {address}</div>
                <div> Solde du compte : {balance} </div>
+               
+               </div>
+        
                <br/>
+               <div className="liste"> 
                <Blocks/>
+               </div>
+               </div>
            </div> 
         );
     }

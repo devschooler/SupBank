@@ -1,0 +1,34 @@
+Body { 
+    background-image: url("./images/architecture-buildings-china-1366957.jpg");
+    color: white;
+    background-size : 1900px;
+    text-align: center;
+    font-size: 18px;
+
+}
+
+.Block {border: 1px solid white;
+    margin: 1%; 
+    padding: 2%;
+    max-width: 35%;
+    margin: 0 auto;
+    margin-top: 2%
+
+}
+
+.welcome{max-width: 30%;
+margin: 0 auto;
+margin-top: 5%
+
+}
+
+.perso {max-width: 30%;
+    margin: 0 auto;
+    margin-top: 5%
+
+}
+
+img.supbank-logo {max-width: 50%;
+
+}
+
