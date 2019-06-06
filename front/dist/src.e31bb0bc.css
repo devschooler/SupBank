@@ -32,3 +32,20 @@ img.supbank-logo {max-width: 50%;
 
 }
 
+.btn-nav {border : 1px solid white;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 1%; 
+    margin-bottom: 3%;
+    margin-top: 2%;
+
+}
+a {text-decoration: underline;
+}
+
+.LaunchTransaction {max-width: 40% !important;
+margin: 0 auto; 
+}
+.form-group {max-width: 40% !important;
+margin: 0 auto; 
+}

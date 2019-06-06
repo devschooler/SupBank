@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Blocks from './Blocks';
 import Block from './Block';
-import image from '../src/images/SUPFILE_white.png';
+import { Link } from 'react-router-dom';
+import image from '../src/images/SUPBANK_white(sans background).png';
 class App  extends Component  {
     state = { walletInfo: {}};
 
@@ -33,12 +34,17 @@ class App  extends Component  {
                  voici vos informations personnelles, ne les communiquez qu'avec des personnes de confiances ! 
                 <div> addresse du compte : {address}</div>
                <div> Solde du compte : {balance} </div>
+
+               <br />
+        <div className='btn-nav'><Link to='/blocks'> Cliquez ici pour explorer la blockchain </Link></div>
+        //<div className='btn-nav'><Link to='/launch-transaction'>Effectuer un virement </Link></div>
+
                
                </div>
         
                <br/>
                <div className="liste"> 
-               <Blocks/>
+               
                </div>
                </div>
            </div> 
