@@ -6,6 +6,7 @@ import Blocks from '../composants/Blocks';
 import './style.css';
 import saveHistory from '../composants/saveHistory';
 import LaunchTransaction from '../composants/LaunchTransaction';
+import DisplayTransactionPool from '../composants/DisplayTransactionPool';
 
 
 
@@ -15,6 +16,7 @@ render(
         <Route exact path='/' component={App} />
       <Route path='/blocks' component={Blocks} />
       <Route path='/launch-transaction' component={LaunchTransaction} />
+      <Route path='/display-transaction-pool' component={DisplayTransactionPool} />
 
         </Switch>
     </Router>,

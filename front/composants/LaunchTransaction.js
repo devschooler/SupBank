@@ -30,13 +30,13 @@ class LaunchTransaction extends Component {
         }).then(response => response.json())
           .then(json => {
             alert(json.message || json.type);
-            history.push('/transaction-pool');
+            history.push('/display-transaction-pool');
           });
       }
   render() {
     return (
       <div className='LaunchTransaction'>
-       <div className='btn-nav'> <Link to='/'>Home</Link> </div>
+       <div className='btn-nav'> <Link to='/'>retour à votre compte</Link> </div>
         <h3>Effectuer un virement </h3>
         <br />
         <h4>Addresse connue</h4>

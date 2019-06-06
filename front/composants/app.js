@@ -39,7 +39,8 @@ class App  extends Component  {
         <div className='btn-nav'><Link to='/blocks'> Cliquez ici pour explorer la blockchain </Link></div>
         //<div className='btn-nav'><Link to='/launch-transaction'>Effectuer un virement </Link></div>
 
-               
+        <div className='btn-nav'><Link to='/display-transaction-pool'>Liste des transactions </Link></div>
+
                </div>
         
                <br/>
