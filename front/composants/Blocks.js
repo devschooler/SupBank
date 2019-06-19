@@ -18,7 +18,7 @@ class Blocks extends Component {
 
         return (
             <div> 
-                        <div className='btn-nav'><Link to='/'>Retour à votre compte </Link></div>
+                        <div className='btn-nav'><Link to='/home'>Retour à votre compte </Link></div>
 
                 <h3> Liste des blocks </h3>
                 {

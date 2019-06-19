@@ -43,7 +43,7 @@ class DisplayTransactionPool extends Component {
   render() {
     return (
       <div className='TransactionPool'>
-        <div className='btn-nav'><Link to='/'>Retour à votre compte  </Link></div>
+        <div className='btn-nav'><Link to='/home'>Retour à votre compte  </Link></div>
         <h3>Liste des transactions </h3>
         {
           Object.values(this.state.transactionPoolMap).map(transaction => {

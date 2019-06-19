@@ -46,6 +46,14 @@ a {text-decoration: underline;
 .LaunchTransaction {max-width: 40% !important;
 margin: 0 auto; 
 }
+
+.lama {width: 100%;
+    margin-left: 25%;
+}
+
 .form-group {max-width: 40% !important;
 margin: 0 auto; 
 }
+
+
+
